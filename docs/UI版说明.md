@@ -30,7 +30,8 @@ SHA-256 `7E89A71C69E0C8D2CCBD128BE6DEBDD192635044ED70D3BCB77B9BB813E3F603`。
 ## 2. 运行
 
 ```powershell
-cd "C:\Users\T8pro\Documents\默认项目\EAgentX-新UI版"
+git clone https://github.com/yrtnb666/EAgentX.git
+cd EAgentX
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 .\dist\EAgentX-UI.exe
 ```
