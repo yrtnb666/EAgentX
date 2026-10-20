@@ -1,0 +1,8 @@
+dist/
+tools/.compiler/
+*.log
+*.pdb
+.vs/
+obj/
+bin/
+selftest-out.txt
