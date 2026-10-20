@@ -43,7 +43,7 @@ public class WCap {
 [WCap]::SetProcessDPIAware() | Out-Null
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$exe = Join-Path $root "dist\EAgentX-UI.exe"
+$exe = Join-Path $root "dist\EAgentX.exe"
 $cfgDir = Join-Path $env:APPDATA "EAgentX-UI"
 if (-not (Test-Path $cfgDir)) { New-Item -ItemType Directory -Path $cfgDir | Out-Null }
 $mode = if ($Theme -eq "dark") { "dark" } else { "light" }
@@ -52,7 +52,7 @@ Set-Content -Path (Join-Path $cfgDir "theme.json") -Value "{`"version`":1,`"mode
 if ($Scale -ne "") { $env:EAGENTX_UI_SCALE = $Scale } else { Remove-Item Env:\EAGENTX_UI_SCALE -ErrorAction SilentlyContinue }
 if ($Dialog -ne "") { $env:EAGENTX_UISHOT = $Dialog } else { Remove-Item Env:\EAGENTX_UISHOT -ErrorAction SilentlyContinue }
 
-Get-Process EAgentX-UI -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Get-Process EAgentX -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep -Milliseconds 400
 
 if ($Scroll -ne "") { $env:EAGENTX_UISCROLL = $Scroll } else { Remove-Item Env://EAGENTX_UISCROLL -ErrorAction SilentlyContinue }

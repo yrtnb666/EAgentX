@@ -8,8 +8,8 @@
 | 项目 | 结果 |
 |---|---|
 | 构建 | `build.ps1` → **0 警告 0 错误**（Roslyn / 系统 csc 两条链路都可以） |
-| 产物 | `dist\EAgentX-UI.exe`，**615,936 字节** |
-| SHA-256 | `D06A97497D388294F03ED5FD767AD4D5BD713D48B8CA711A0A2A7FC3CBC9BED6` |
+| 产物 | `dist\EAgentX.exe`，**616,960 字节** |
+| SHA-256 | `257168088C4D983C693FE2E686CA362F2C42AE68D4179F0DB61523792BED78F8` |
 | 自检 | `--selftest` **22/22 通过**（退出码 0） |
 | 主题动画 | 280ms 淡入淡出（要求在 200–350ms 之间） |
 | 主题配置 | `%APPDATA%\EAgentX-UI\theme.json`（与 config.json 完全分离） |
@@ -395,10 +395,10 @@ p.AccentSoft = Color.FromArgb(233, 244, 241);
 ## 3.5 构建、自检、截图
 
 ```powershell
-cd "D:\新建文件夹 (5)\EAgentX-新UI版"
+cd EAgentX
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
-.\dist\EAgentX-UI.exe --selftest          # 22/22 通过，退出码 0
-.\dist\EAgentX-UI.exe
+.\dist\EAgentX.exe --selftest          # 22/22 通过，退出码 0
+.\dist\EAgentX.exe
 
 # 开发期截图（可选，不影响程序）：
 powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\ui-fullshot.ps1 -Out docs\x.png -Theme dark

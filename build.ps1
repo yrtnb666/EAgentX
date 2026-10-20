@@ -29,7 +29,7 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $srcDir = Join-Path $root "src"
 $distDir = Join-Path $root "dist"
 $toolDir = Join-Path $root "tools\.compiler"
-$exeOut = Join-Path $distDir "EAgentX-UI.exe"
+$exeOut = Join-Path $distDir "EAgentX.exe"
 
 function Write-Step($text) { Write-Host "==> $text" -ForegroundColor Cyan }
 function Write-Ok($text) { Write-Host "    $text" -ForegroundColor Green }

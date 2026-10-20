@@ -1,14 +1,17 @@
-# EAgentX · 新 UI 版
+# EAgentX
 
-日间浅色 / 夜间深色双主题、卡片式界面的 EAgentX。功能沿用测试版，只是把主窗口、设置、命令确认和发送间隔
-对话框重新做了一遍，去掉了主界面上「工具 / 技能 / 窗口置入 / 防风控」那排功能横幅，日常使用更清爽。
+日间浅色 / 夜间深色双主题、卡片式界面的 Windows 桌面智能体。
 
-- 稳定版：`..\EAgentX\`，保持原样，没有改动。
-- 测试版：`..\EAgentX-测试版\`，保持原样，可以和新 UI 版同时运行。
-- 新 UI 版：本目录，独立配置、日志和浏览器 profile。
+> **本项目基于 [YaoGaoChaoLe/EAgent](https://github.com/YaoGaoChaoLe/EAgent) 制作。**
+> EAgent 是原作者用易语言写的开源项目，本仓库是它的 **C# / .NET Framework 重写版**，
+> 沿用「思考 → 执行 → 观察 → 再思考」的闭环思路与 CDP 网页驱动方案，
+> 并重做了整套界面、补上命令审批与技能库等能力。致原作者 YaoGaoChaoLe。
 
-当前构建：`dist\EAgentX-UI.exe`，614,400 字节，SHA-256
-`D06A97497D388294F03ED5FD767AD4D5BD713D48B8CA711A0A2A7FC3CBC9BED6`（0 警告 0 错误；`--selftest` 22/22）。
+功能上你写一句任务，模型给出 PowerShell 命令，程序执行后把**真实输出**回喂给模型，
+形成 `思考 → 执行 → 观察 → 再思考` 的闭环 —— 全程走 DeepSeek 网页版，**不需要 API Key**。
+
+当前构建：`dist\EAgentX.exe`，616,960 字节，SHA-256
+`257168088C4D983C693FE2E686CA362F2C42AE68D4179F0DB61523792BED78F8`（0 警告 0 错误；`--selftest` 22/22）。
 
 日间主界面：
 
@@ -23,17 +26,17 @@
 
 主题 / 美化实现细节、改动清单和"怎么改配色"见 [`docs/UI美化升级说明.md`](docs/UI美化升级说明.md)。
 
-## 与其它版本隔离
+## 与原作的隔离
 
-| 项目 | 新 UI 版 |
+本项目是独立发行的一份实现，与你机器上可能存在的其它版本互不干扰。
+
+| 项目 | 本项目 |
 |---|---|
-| 可执行文件 | `dist\EAgentX-UI.exe` |
+| 可执行文件 | `dist\EAgentX.exe` |
 | 配置 / 日志 | `%APPDATA%\EAgentX-UI` |
 | 浏览器 profile | `%APPDATA%\EAgentX-UI\edge-profile` |
 | CDP 默认端口 | `9555` |
 | 单实例 Mutex | `EAgentX.UI.SingleInstance.5C8A72` |
-
-稳定版仍是 `9222`，测试版仍是 `9444`，三个版本互不占用同一个浏览器 profile。
 
 ## 界面变化
 
@@ -59,13 +62,14 @@
 ## 运行
 
 ```powershell
-cd "C:\Users\T8pro\Documents\默认项目\EAgentX-新UI版"
+git clone https://github.com/yrtnb666/EAgentX.git
+cd EAgentX
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
-.\dist\EAgentX-UI.exe
+.\dist\EAgentX.exe
 ```
 
-首次启动会用新的浏览器 profile，需要重新登录 DeepSeek。若想复用测试版的登录状态，先退出两个版本的浏览器，
-再把 `%APPDATA%\EAgentX-Test\edge-profile` 复制到 `%APPDATA%\EAgentX-UI\edge-profile`。
+首次启动会用新的浏览器 profile（`%APPDATA%\EAgentX-UI\edge-profile`），需要重新登录 DeepSeek。
+之后登录状态跟着 profile 走，不用重复登录。
 
 ## 构建与自检
 
@@ -73,14 +77,27 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 # Windows 自带 C# 5 编译器
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Csc "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 
-.\dist\EAgentX-UI.exe --selftest
-.\dist\EAgentX-UI.exe --shotcheck
+.\dist\EAgentX.exe --selftest
+.\dist\EAgentX.exe --shotcheck
 ```
 
 源码保持 C# 5，Windows 自带 `csc.exe` 和 Roslyn 两条链路都能编译，零警告。详细说明见
 [`docs/UI版说明.md`](docs/UI版说明.md)，技能清单见 [`docs/技能包清单.md`](docs/技能包清单.md)。
 
+## 致谢与出处
+
+- **原作：[YaoGaoChaoLe/EAgent](https://github.com/YaoGaoChaoLe/EAgent)**（易语言，GPL-3.0）
+  本项目是它的 C# 重写版，核心思路、CDP 网页驱动方案与提示词结构均源自原作。
+  原作作者 YaoGaoChaoLe 提供了最初的设计思路与工具协议，本项目在此基础上重写实现。
+  完整对比见 [`docs/与EAgent对比.md`](docs/与EAgent对比.md)，原作 README 存档见
+  [`docs/原作者README.md`](docs/原作者README.md)。
+- **下游项目：[yrtnb666/SnapAsk](https://github.com/yrtnb666/SnapAsk)** 复用了本项目的 CDP 网页驱动方案。
+
 ## License
 
-本项目参考 [YaoGaoChaoLe/EAgent](https://github.com/YaoGaoChaoLe/EAgent)（GPL-3.0）的思路重写，
-同样以 **GPL-3.0** 发布，仅供学习交流，不提供任何担保。完整条款见 [LICENSE](LICENSE)。
+本项目基于 [YaoGaoChaoLe/EAgent](https://github.com/YaoGaoChaoLe/EAgent)（GPL-3.0）重写，
+按 GPL-3.0 发布，仅供学习交流，不提供任何担保。完整条款见 [LICENSE](LICENSE)。
+
+原作声明同样适用：EAgent 不是反代、没第三方中转、没逆向 DeepSeek 网页，
+但**基于 CDP 自动化操控网页，同样违反了 [DeepSeek 用户协议](https://cdn.deepseek.com/policies/zh-CN/deepseek-terms-of-use.html)**，
+请自行评估账号风险。
